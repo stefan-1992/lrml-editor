@@ -1,4 +1,4 @@
-# Supplementary Material for the Journal Paper:
+# Supplementary Material for the Conference Paper:
 Fuchs, S., Dimyadi, J., Ronee, A. S., Gupta, R., Witbrock, M., & Amor, R. (2023, July). A LegalRuleML editor with transformer-based autocompletion. In EC3 Conference 2023 (Vol. 4). European Council on Computing in Construction.
 
 ## Pre-requisites
