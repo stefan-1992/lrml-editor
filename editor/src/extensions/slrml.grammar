@@ -1,0 +1,44 @@
+@precedence { unary @left, loop @left, ternary @left, binary @left, function @left, variable @left }
+
+@top Rule { expressions }
+@skip { space | Comment }
+@detectDelim
+
+expressions { (expression) (comma expression)* }
+
+datas { Data (comma? Data)* }
+
+expression { !unary UnaryExpression | !loop LoopExpression | !ternary TernaryExpression | !binary BinaryExpression }
+
+Atom { Variable (dot Property)? }
+Data { (identifier | data_identifier | (number)) }
+
+UnaryExpression { ( Not | Deontics | RuleIndicator ) '(' expression ')' }
+
+LoopExpression { Loop '(' expression comma expression ')' }
+
+BinaryExpression { Function '(' ( Atom | BinaryExpression ) (comma (Data | DataTernaryExpression))? ')' }
+
+TernaryExpression { Logic '(' expressions ')' }
+DataTernaryExpression { Logic '(' datas ')' }
+
+Function { identifier }
+Variable { identifier | data_identifier }
+Property { identifier }
+
+@tokens {
+    space { $[ \t\n\r]+ }
+    RuleIndicator { "if" | "then" }
+    Logic { "and" | "or" }
+    Not { "not" }
+    Loop { "loop" }
+    Deontics { "obligation" | "permission" | "prohibition" }
+    identifier { $[a-zA-Z_0-9-]+ }
+    data_identifier {"'"![']+"'"}
+    number { $[ft]* $[0-9]+ ('.'$[0-9a-z]+)* $[a-zA-Z_0-9- /+*]*}
+
+    @precedence { Comment, RuleIndicator, Logic, Not, Loop, Deontics, data_identifier, identifier, number, dot }
+    comma { ',' }
+    dot { '.' }
+    Comment { "//" ![\n]* }
+}

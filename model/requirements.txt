@@ -1,0 +1,13 @@
+pandas
+numpy==1.24.2
+torch==2.0.0
+transformers==4.27.4
+nltk
+sentence_transformers
+python-dotenv
+flask[async]
+gunicorn
+aiocache[redis]
+aioredis
+anytree
+celery
