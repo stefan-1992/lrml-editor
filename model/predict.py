@@ -1,8 +1,7 @@
 from transformers import T5ForConditionalGeneration, T5Tokenizer
 import torch
 import os
-from utils import str2bool
-from lrml import revert_tree_based_spacing, fix_then, add_space_after_comma
+from lrml import revert_tree_based_spacing, fix_then, add_space_after_comma, str2bool
 
 
 class PredictionHelper:
@@ -18,7 +17,7 @@ class PredictionHelper:
         if os.environ.get("Q_ENGINE"):
             print('Set Q_ENGINE to', os.environ.get("Q_ENGINE"))
             torch.backends.quantized.engine = os.environ.get("Q_ENGINE")
-        model = T5ForConditionalGeneration.from_pretrained(self.model_path)
+        model = T5ForConditionalGeneration.from_pretrained(self.model_path, use_safetensors=True)
         model_int8 = torch.quantization.quantize_dynamic(
             model,  # the original model
             {torch.nn.Linear},  # a set of layers to dynamically quantize

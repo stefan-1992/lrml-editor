@@ -11,3 +11,5 @@ aiocache[redis]
 aioredis
 anytree
 celery
+safetensors
+sentencepiece

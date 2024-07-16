@@ -10,9 +10,8 @@ from indexing import IndexingHelper
 from predict import PredictionHelper
 import asyncio
 import sys
-from utils import *
 from celery import Celery
-from lrml import swap_lrml_nodes
+from lrml import swap_lrml_nodes, str2bool
 
 
 def make_celery(app):
