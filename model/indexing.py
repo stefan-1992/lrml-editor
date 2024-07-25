@@ -40,7 +40,8 @@ class IndexingHelper:
         for name in tables:
             df = db_con.load_table(name)
             old_cache = await self.cache.get(name)
-            old_cache = pickle.loads(old_cache)
+            if old_cache:
+                old_cache = pickle.loads(old_cache)
             if old_cache and old_cache.df.equals(df) and old_cache.index.shape[0] == len(df) and len(old_cache.ngrams) == len(df):
                 continue
             print('Loading', name)
